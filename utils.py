@@ -1,9 +1,8 @@
 import hashlib
 import sha3
-import bitstring
+from bitstring import BitArray
 
 def hashIt(bytetext,hex=False):
-
     s = hashlib.sha3_256()
     s.update(bytetext)
     if hex:
@@ -11,6 +10,7 @@ def hashIt(bytetext,hex=False):
     else:
         return s.digest()
 
+def testVectors():
     empty = b''
     emptyAnswer = 'a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a'
     
@@ -22,24 +22,11 @@ def hashIt(bytetext,hex=False):
     
     large = b'abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu'
     largeAnswer = '916f6061fe879741ca6469b43971dfdb28b1a32dc36cb3254e812be27aad1d18'
-    
-    print("\nEmpty string:")
-    
-    print(hashIt(empty,True))
-    print(emptyAnswer)
-    
-    print("\nShort string:")
-    
-    print(hashIt(short,True))
-    print(shortAnswer)
-    
-    print("\nMedium string:")
-    
-    print(hashIt(medium,True))
-    print(mediumAnswer)
-    
-    print("\nLarge string:")
-    
-    print(hashIt(large,True))
-    print(largeAnswer)
-    
+    assert hashIt(empty,True) == emptyAnswer, "Mensaje vacio fallo."
+    assert hashIt(short,True) ==  shortAnswer, "Mensaje corto fallo."
+    assert hashIt(medium,True) == mediumAnswer, "Mensaje medio fallo."
+    assert hashIt(large,True) == largeAnswer, "Mensaje largo fallo."
+    return True
+
+def hammingDistance(bitArray1,bitArray2):
+    return (bitArray1^bitArray2).count(True)
