@@ -2,18 +2,15 @@ from utils import *
 import random
 
 def makeOneRun(distances):
-    ''' Realiza el hash de una cadena de longitud aleatoria de bits 
-    y una versión casi identica de la misma cadena. Luego calcula y
+    ''' Realiza el hash de una cadena aleatoria de bits 256
+    y una copia de la cadena con un bit complementado. Luego calcula y
     devuelve la distancia de hamming entre los dos resultados.'''
     
-    # Se elige el tamaño de la cadena. Solo se eligen longitudes multiplos
-    # de 8 para poder hacer luego la conversión a bytes.
-    l = random.randrange(8,1024,8)
     # Se selecciona la posicion de la cadena a cambiar.
-    pos = random.randint(0,l-1)
-    # Se genera la cadena aleatoria de bits de longitud l
-    x1 = random.getrandbits(l)
-    # Creamos la máscara apropiada y se la aplicamos al la primera
+    pos = random.randint(0,255)
+    # Se genera la cadena aleatoria de 256 bits de longitud
+    x1 = random.getrandbits(256)
+    # Creamos la máscara apropiada y se la aplicamos a la primera
     # cadena para crear la cadena casi identica
     mask = 1 << pos
     x2 = x1 ^ mask
@@ -36,13 +33,6 @@ def makeOneRun(distances):
 
     d = hammingDistance(r1,r2)
     distances[d-1] += 1
-
-    # print(m1)
-    # print(m2)
-    # print(hammingDistance(m1,m2))
-    # print(r1)
-    # print(r2)
-    # print(hammingDistance(r1,r2))
 
 if __name__ == '__main__':
     testVectors()
