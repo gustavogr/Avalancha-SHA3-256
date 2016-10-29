@@ -3,6 +3,8 @@ from bitstring import BitArray
 import random
 import statistics
 import datetime
+import matplotlib.pyplot as plt
+
 
 def makeOneRun():
     ''' Realiza el hash de una cadena aleatoria de bits 256
@@ -119,8 +121,14 @@ if __name__ == '__main__':
     f.write(", ".join(map(str, result[0:10])))
     for i in range(20,300,10):
         f.write("\n     " + ", ".join(map(str, result[i-10:i])))
-
     f.write("]\n")
-
     f.close()
 
+    # Creamos el histograma
+
+    n = max(result) - min(result)
+    plt.hist(result,bins=n)
+    plt.title("Distancias de Hamming")
+    plt.xlabel("Nº de bits distintos")
+    plt.ylabel("Frecuencia")
+    plt.savefig("Informe/Histograma")
