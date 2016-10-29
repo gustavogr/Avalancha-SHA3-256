@@ -1,7 +1,8 @@
 from utils import hashIt, testVectors, hammingDistance
-import random
 from bitstring import BitArray
+import random
 import statistics
+import datetime
 
 def makeOneRun():
     ''' Realiza el hash de una cadena aleatoria de bits 256
@@ -32,10 +33,7 @@ def makeOneRun():
     r1 = BitArray(h1)
     r2 = BitArray(h2)
 
-    
-
     return hammingDistance(r1,r2)
-
 
 
 if __name__ == '__main__':
@@ -45,7 +43,7 @@ if __name__ == '__main__':
     distances1 = []
     distances2 = []    # Listas para acumular resultados de las corridas
     distances3 = []
-    n = 1              # Numero de hashes a probar en cada corrida
+    n = 100              # Numero de hashes a probar en cada corrida
 
     ##################
     #
@@ -92,14 +90,37 @@ if __name__ == '__main__':
     if error3 > 0.05:
         raise RuntimeError("La tercera corrida dio un error mayor a 5%")
 
-    ##################
+    ###############################
     #
     # Calculo final de resultados
     #
-    ##################
+    ###############################
 
+    f = open('Resultado-' + str(datetime.date.today()) + '.txt','w')
+    f.write("Experimento del dia " + str(datetime.date.today()) + ".\n")
 
+    # Acumulamos el resultado de las tres corridas
+    result = distances1 + distances2 + distances3
 
+    # Calculamos los estadisticos correspondientes
+    # y los escribimos al archivo de salida
+    media = statistics.mean(result)
+    f.write("Media: " + str(media) + "\n")
+    try:
+        moda = statistics.mode(result)
+        f.write("Moda: " + str(moda) + "\n")
+    except statistics.StatisticsError:
+        f.write("Existe mas de un valor que podría ser la moda.\n")
+    mediana = statistics.median(result)
+    f.write("Mediana: " + str(mediana) + "\n")
 
+    f.write("Distancias obtenidas:\nD = [")
 
+    f.write(", ".join(map(str, result[0:10])))
+    for i in range(20,300,10):
+        f.write("\n     " + ", ".join(map(str, result[i-10:i])))
+
+    f.write("]\n")
+
+    f.close()
 
