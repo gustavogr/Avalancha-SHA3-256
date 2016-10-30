@@ -45,7 +45,7 @@ if __name__ == '__main__':
     distances1 = []
     distances2 = []    # Listas para acumular resultados de las corridas
     distances3 = []
-    n = 100              # Numero de hashes a probar en cada corrida
+    n = 1000              # Numero de hashes a probar en cada corrida
 
     ##################
     #
@@ -58,12 +58,18 @@ if __name__ == '__main__':
 
     # Calculamos el error de la media con respecto a 
     # la media ideal que es 256/2 = 128
+    # La varianza ideal es npq -> 256 * 1/2 * 1/2 = 64
+    # 
     m1 = statistics.mean(distances1)
-    error1 = abs(128 - m1)/128
+    v1 = statistics.variance(distances1)
+    errm1 = abs(128 - m1)/128
+    errv1 = abs(64 - v1)/64
 
-    # Abortamos si el error es mayor a 5% (0.05)
-    if error1 > 0.05:
-        raise RuntimeError("La primera corrida dio un error mayor a 5%")
+    # Abortamos si el error es mayor a 7.5% (0.075)
+    if errm1 > 0.075:
+        raise RuntimeError("La media de la primera corrida dio un error mayor a 7.5%")
+    if errv1 > 0.075:
+        raise RuntimeError("La varianza de la primera corrida dio un error mayor a 7.5%")
 
     ##################
     #
@@ -75,9 +81,13 @@ if __name__ == '__main__':
     for i in range(n):
         distances2.append(makeOneRun())
     m2 = statistics.mean(distances2)
-    error2 = abs(128 - m2)/128
-    if error2 > 0.05:
-        raise RuntimeError("La segunda corrida dio un error mayor a 5%")
+    v2 = statistics.variance(distances2)
+    errm2 = abs(128 - m2)/128
+    errv2 = abs(64 - v2)/64
+    if errm2 > 0.075:
+        raise RuntimeError("La media de la segunda corrida dio un error mayor a 7.5%")
+    if errv2 > 0.075:
+        raise RuntimeError("La varianza de la segunda corrida dio un error mayor a 7.5%")
 
     ##################
     #
@@ -87,10 +97,17 @@ if __name__ == '__main__':
 
     for i in range(n):
         distances3.append(makeOneRun())
+    
     m3 = statistics.mean(distances3)
-    error3 = abs(128 - m3)/128
-    if error3 > 0.05:
-        raise RuntimeError("La tercera corrida dio un error mayor a 5%")
+    v3 = statistics.variance(distances3)
+    errm3 = abs(128 - m3)/128
+    errv3 = abs(64 - v3)/64
+
+    # Abortamos si el error es mayor a 7.5% (0.075)
+    if errm3 > 0.075:
+        raise RuntimeError("La media de la tercera corrida dio un error mayor a 7.5%")
+    if errv3 > 0.075:
+        raise RuntimeError("La varianza de la tercera corrida dio un error mayor a 7.5%")
 
     ###############################
     #
@@ -124,9 +141,9 @@ if __name__ == '__main__':
 
     f.write("Distancias obtenidas:\nD = [")
 
-    f.write(", ".join(map(str, result[0:10])))
-    for i in range(20,300,10):
-        f.write("\n     " + ", ".join(map(str, result[i-10:i])))
+    f.write(", ".join(map(str, result[0:20])))
+    for i in range(40,n,20):
+        f.write("\n     " + ", ".join(map(str, result[i-20:i])))
     f.write("]\n")
     f.close()
 

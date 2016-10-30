@@ -1,6 +1,5 @@
 import hashlib
 import sha3
-from bitstring import BitArray
 
 def hashIt(bytetext,hex=False):
     s = hashlib.sha3_256()
