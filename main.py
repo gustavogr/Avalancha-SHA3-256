@@ -116,6 +116,12 @@ if __name__ == '__main__':
     mediana = statistics.median(result)
     f.write("Mediana: " + str(mediana) + "\n")
 
+    desviacion = statistics.stdev(result,xbar=media)
+    f.write("Desviacion: " + str(desviacion) + "\n")
+
+    varianza = statistics.variance(result,xbar=media)
+    f.write("Varianza: " + str(varianza) + "\n")
+
     f.write("Distancias obtenidas:\nD = [")
 
     f.write(", ".join(map(str, result[0:10])))
