@@ -142,8 +142,8 @@ if __name__ == '__main__':
     f.write("Distancias obtenidas:\nD = [")
 
     f.write(", ".join(map(str, result[0:20])))
-    for i in range(40,n,20):
-        f.write("\n     " + ", ".join(map(str, result[i-20:i])))
+    for i in range(20,n,20):
+        f.write("\n     " + ", ".join(map(str, result[i:i+20])))
     f.write("]\n")
     f.close()
 

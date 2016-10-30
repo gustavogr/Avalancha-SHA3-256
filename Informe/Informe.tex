@@ -90,7 +90,7 @@ facilitar el manejo de de las cadenas de bits. Para garantizar el correcto funci
 probó la función con vectores de prueba\footnote{\blurl{http://www.di-mgt.com.au/sha_testvectors.html}}. 
 
 \subsection{Estructura de una corrida}
-Lo primero a hacer en una corrida del experimento es generar las cadenas de bits a cifrar. Para ello se genera un numero 
+Lo primero a hacer en una corrida del experimento es generar las cadenas de bits a cifrar. Para ello se genera un número 
 entero aleatorio de 256 bits, se elige al azar uno de los 256 bits para cambiar y se genera el entero con el bit cambiado. 
 Finalmente, antes de calcular el hash se deben convertir los enteros en su representación binaria para lo cual se utiliza 
 la librería bitstring. Una vez calculados los hashes de las cadenas, se mide la distancia de Hamming 
@@ -99,9 +99,9 @@ entre los dos Hashes y se devuelve el valor para ser acumulado.
  \subsection{Significación del experimento y número de corridas a realizar}
  Para este experimento se decidió conseguir un resultado con significancia de 92.5\%. El número de corridas a realizar 
  se definió de manera experimental. Para ello se hace una cantidad arbitraria de corridas. Sobre este resultado se miden
- la varianza y la media y se comparan con los valores ideales (se explican en la sección de comportamiento esperado). Esta
- medición se realiza con tres lotes de corridas. Si en alguno de los lotes el error de las medidas es mayor a 7.5\% con 
- respecto a los valores ideales se aumenta el numero de pruebas a realizar. Para conseguir el nivel de significancia deseado
+ la varianza y la media y se comparan con los valores ideales (se explican en la sección \emph{Comparación con un Oráculo Aleatorio}).
+ Esta medición se realiza con tres lotes de corridas. Si en alguno de los lotes el error de las medidas es mayor a 7.5\% con 
+ respecto a los valores ideales se aumenta el número de pruebas a realizar. Para conseguir el nivel de significancia deseado
  se hicieron lotes de 1000 corridas.
 
 \section{Resultados experimentales}
@@ -121,11 +121,11 @@ obtenidas en el experimento.
 }
 \capbtabbox{%
   \begin{tabular}{l r}
-    Media: & 127.934 \\
-    Moda: & 128 \\
-    Mediana: & 128 \\
-    Desviacion: & 7.992 \\
-    Varianza: & 63.882 
+    Media: & 127.964 \\
+    Moda: & 127 \\
+    Mediana: & 128 \\ 
+    Desviacion: & 7.922 \\
+    Varianza: & 62.766
   \end{tabular}
 }{%
   \caption{Resultados estadísticos}%
